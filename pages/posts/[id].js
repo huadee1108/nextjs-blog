@@ -3,8 +3,18 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head';
 import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 
 export default function Post({ postData }) {
+  const [img, setImg] = useState('')
+  const fetchapi = async () => {
+    const res = await axios.get(`https://api.sograph.xyz/api/space/campaign/info?space_code=chamcha&campaign_code=GyVrhBzOXb`)
+    setImg(res.data.data.campaign.cover_image_url)
+  }
+  useEffect(() => {
+    fetchapi()
+  }, [])
   return (
     // <Layout>
     <>
@@ -16,7 +26,7 @@ export default function Post({ postData }) {
         />
         <meta
           property="og:image"
-          content={`https://sograph-static.s3.ap-southeast-1.amazonaws.com/dashboard/images/7B2B2E1CB3F1899C9E6D5100782792B0.png`}
+          content={img}
         />
         <meta name="og:title" content={'ssg-ssr'} />
         <meta name="twitter:card" content="summary_large_image" />
