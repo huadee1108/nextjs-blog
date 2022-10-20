@@ -16,7 +16,7 @@ export default function Post({ postData }) {
         />
         <meta
           property="og:image"
-          content={`https://sograph-static.s3.ap-southeast-1.amazonaws…board/images/7B2B2E1CB3F1899C9E6D5100782792B0.png`}
+          content={`https://sograph-static.s3.ap-southeast-1.amazonaws.com/dashboard/images/7B2B2E1CB3F1899C9E6D5100782792B0.png`}
         />
         <meta name="og:title" content={'ssg-ssr'} />
         <meta name="twitter:card" content="summary_large_image" />
