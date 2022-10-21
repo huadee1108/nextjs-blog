@@ -3,18 +3,9 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head';
 import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.css';
-import { useEffect, useState } from 'react';
 import axios from 'axios'
 
-export default function Post({ postData }) {
-  const [img, setImg] = useState('')
-  const fetchapi = async () => {
-    const res = await axios.get(`https://api.sograph.xyz/api/space/campaign/info?space_code=chamcha&campaign_code=GyVrhBzOXb`)
-    setImg(res.data.data.campaign.cover_image_url)
-  }
-  useEffect(() => {
-    fetchapi()
-  }, [])
+export default function Post({ postData, imgUrl }) {
   return (
     // <Layout>
     <>
@@ -26,7 +17,7 @@ export default function Post({ postData }) {
         />
         <meta
           property="og:image"
-          content={img}
+          content={imgUrl}
         />
         <meta name="og:title" content={'ssg-ssr'} />
         <meta name="twitter:card" content="summary_large_image" />
@@ -54,10 +45,13 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   // Add the "await" keyword like this:
   const postData = await getPostData(params.id);
+  const res = await axios.get(`https://api.sograph.xyz/api/space/campaign/info?space_code=chamcha&campaign_code=GyVrhBzOXb`)
+  const imgUrl = res.data.data.campaign.cover_image_url
 
   return {
     props: {
       postData,
+      imgUrl
     },
   };
 }
